@@ -1,0 +1,43 @@
+{% extends 'publisher/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card card-body shadow-lg">
+        <h1 class="text-center mb-4">Google Book API Search</h1>
+        <form method="get" class="mb-3">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="search books from Google Books" value="{{ request.GET.q }}">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+        </form>
+        {% if books %}
+          <ul class="list-unstyled">
+            {% for book in books %}
+              <li class="media mb-3">
+                {% if book.image_url %}
+                  <img src="{{ book.image_url }}" class="mr-3" alt="{{ book.title }}" width="128" height="128">
+                {% else %}
+                  <img src="{% static 'dashboard/img/book-placeholder.png' %}" class="mr-3" alt="{{ book.title }}" width="128" height="128">
+                {% endif %}
+                <div class="media-body">
+                  <h5 class="mt-0 mb-1">{{ book.title }}</h5>
+                  <p class="mb-1"><strong>Author:</strong> {{ book.author }}</p>
+                  <p class="mb-1">{{ book.description }}</p>
+                  <p class="mb-0"><a href="{{ book.preview_url }}" class="btn btn-sm btn-outline-secondary" target="_blank">Preview on Google Books</a></p>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No books found.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

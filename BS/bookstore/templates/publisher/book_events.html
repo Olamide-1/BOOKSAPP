@@ -1,0 +1,36 @@
+
+
+{% extends 'publisher/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container my-5">
+    <h3 class="page-title"> See book events to attend</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Featured Image</th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+        <tr>
+          <td><img src="{{ event.featured_image }}" alt="img" width="100"></td>
+          <td>{{ event.name }}</td>
+          <td>{{ event.location }}</td>
+          <td>{{ event.date_time }}</td>
+          <td>{{ event.description }}</td>
+  
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+
+
